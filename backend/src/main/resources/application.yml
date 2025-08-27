@@ -21,14 +21,13 @@ spring:
     username: sa
     password:
 
-# API Keys (will be set via environment variables)
 openai:
   api-key: ${OPENAI_API_KEY:}
 
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID:}
   client-secret: ${SPOTIFY_CLIENT_SECRET:}
-  redirect-uri: ${SPOTIFY_REDIRECT_URI:http://localhost:8080/login/oauth2/code/spotify}
+  redirect-uri: ${SPOTIFY_REDIRECT_URI:http://127.0.0.1:8080/login/oauth2/code/spotify}
 
 logging:
   level:
