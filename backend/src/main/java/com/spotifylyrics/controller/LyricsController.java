@@ -35,9 +35,10 @@ public class LyricsController {
     public Mono<Map> generateBlendedLyrics(@RequestBody Map<String, String> request) {
         String artist1 = request.get("artist1");
         String artist2 = request.get("artist2");
+        String genre = request.get("genre");
         String theme = request.get("theme");
         
-        return openAIService.generateBlendedLyrics(artist1, artist2, theme);
+        return openAIService.generateBlendedLyrics(artist1, artist2, genre, theme);
     }
 
     @GetMapping("/test")

@@ -40,13 +40,11 @@ public class OpenAIService {
     private Map<String, Object> createLyricsRequest(String artist, String genre, String theme) {
         Map<String, Object> request = new HashMap<>();
         
-        // Use GPT-4o-mini - good balance of quality and cost
         request.put("model", "gpt-4o-mini");
         request.put("max_tokens", 500);  // Enough for full song
         request.put("temperature", 0.8); // Creative but not too random
         request.put("top_p", 0.9);       // Good diversity
 
-        // Create the prompt
         String prompt = buildLyricsPrompt(artist, genre, theme);
         
         List<Map<String, String>> messages = new ArrayList<>();
@@ -84,13 +82,13 @@ public class OpenAIService {
         return prompt.toString();
     }
 
-    // Method for blending two artists (your genre-bending idea)
-    public Mono<Map> generateBlendedLyrics(String artist1, String artist2, String theme) {
+    public Mono<Map> generateBlendedLyrics(String artist1, String artist2, String genre, String theme) {
         String blendPrompt = String.format(
-            "Create original song lyrics that blend the styles of %s and %s. " +
-            "Combine %s's typical themes and vocabulary with %s's musical approach and energy. " +
-            "Theme: %s. Include a verse and chorus that showcases both influences.",
-            artist1, artist2, artist1, artist2, theme != null ? theme : "a personal story"
+            "Create an original song that is a blend of the lyrical styles of %s and %s." +
+            "Do NOT do a basic rhyme scheme of A A B B unless that artist is known for it." +
+            "Actually look at the lyrical rhyme schemes and structures of the songs of both artists and blend them." +
+            "The song should be of the %s genre and written about %s with the writing styles of both artists.",
+            artist1, artist2, genre, theme
         );
 
         Map<String, Object> request = new HashMap<>();

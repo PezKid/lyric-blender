@@ -1,6 +1,5 @@
 package com.spotifylyrics.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +52,5 @@ public class SpotifyController {
     public Mono<Map> getRecentlyPlayed(
             @RegisteredOAuth2AuthorizedClient("spotify") OAuth2AuthorizedClient authorizedClient) {
         return spotifyService.getRecentlyPlayed(authorizedClient);
-    }
-
-    @GetMapping("/debug-config")
-    public Map<String, String> debugConfig() {
-        Map<String, String> config = new HashMap<>();
-        config.put("clientId_from_spring", clientId != null && !clientId.isEmpty() ? "SET" : "!!! NOT SET OR EMPTY !!!");
-        config.put("clientSecret_from_spring", clientSecret != null && !clientSecret.isEmpty() ? "SET" : "!!! NOT SET OR EMPTY !!!");
-        config.put("redirectUri_from_spring", redirectUri);
-        return config;
     }
 } 

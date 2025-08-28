@@ -40,7 +40,7 @@ const App = () => {
   const getTopGenres = () => {
     const allGenres = topArtists.flatMap(artist => artist.genres || []);
     const uniqueGenres = Array.from(new Set(allGenres));
-    return uniqueGenres.slice(0, 10);
+    return uniqueGenres.slice(0, 20);
   };
 
   // Fetch user data on mount
@@ -80,13 +80,12 @@ const App = () => {
         const artistsData = await artistsResponse.json();
         
         if (artistsData && artistsData.items) {
-          setTopArtists(artistsData.items.slice(0, 10)); // Top 10 only
+          setTopArtists(artistsData.items.slice(0, 20)); 
           setAppState('form');
         }
 
       } catch (err: any) {
         console.error('Network or fetch error:', err);
-        setError('Could not connect to the backend server. Is it running?');
         setAppState('login');
       }
     };
@@ -121,6 +120,7 @@ const App = () => {
         body: JSON.stringify({
           artist1: artist1,
           artist2: artist2,
+          genre: genre,
           theme: theme.trim()
         }),
       });
@@ -242,14 +242,14 @@ const App = () => {
               {/* Genre Dropdown */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Genre Influence (Optional)
+                  Genre Influence
                 </label>
                 <select
                   value={genre}
                   onChange={(e) => setGenre(e.target.value)}
                   className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-green-400 focus:border-transparent"
                 >
-                  <option value="">Select a genre (optional)</option>
+                  <option value="">Select a genre</option>
                   {topGenres.map((genreName, index) => (
                     <option key={index} value={genreName}>
                       {genreName}
